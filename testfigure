@@ -1,0 +1,39 @@
+'''Вычисление площади и определение типа фигуры реализовано через класс.
+Для добавления новых фигур, нужно добавить определение типа фигуры в метод choice_figure
+И добавить метод и его вызов с вычислением площади'''
+
+import math
+
+class Figure():
+    def __init__(self, *parameters):
+        self.parameters = parameters
+        self.square = None
+        self.type = None
+        self.choice_figure()
+
+    def __str__(self):
+        text=f'Your figure:{self.type},square = {self.square}'
+        return text
+
+    def choice_figure(self):
+        if len(self.parameters) == 1:
+            self.type = 'circle'
+            self.square_circle()
+        elif len(self.parameters) == 3:
+            self.type = 'triangle'
+            self.square_triangle()
+        else:
+            self.type = 'Unknown'
+
+    def square_circle(self):
+        self.square = self.parameters[0] ** 2 * math.pi
+
+    def square_triangle(self):
+        x = sorted(self.parameters)[0]
+        y = sorted(self.parameters)[1]
+        z = sorted(self.parameters)[2]
+        if x ** 2 + y ** 2 == z ** 2:
+            self.type = 'Right triangle'
+        p = (x+y+z)/2
+        self.square = math.sqrt(p * (p - x) * (p - y) * (p - z))
+
